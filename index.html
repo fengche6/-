@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三横一竖 | 创意平面设计工作室</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            min-height: 100vh;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            letter-spacing: 2px;
+            cursor: pointer;
+        }
+        
+        .logo span {
+            color: #ff4d5a;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links .nav-item {
+            list-style: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .nav-links .nav-item:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #ff4d5a;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links .nav-item:hover:after,
+        .nav-links .nav-item.active:after {
+            width: 100%;
+        }
+        
+        .nav-links .nav-item.active {
+            color: #ff4d5a;
+        }
+        
+        /* 内容部分 */
+        .content {
+            padding-top: 100px;
+            width: 100%;
+            min-height: 100vh;
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            display: none;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+        
+        /* 首页 */
+        .hero {
+            height: calc(100vh - 100px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background: linear-gradient(45deg, #ff4d5a, #6c63ff, #0099ff);
+            z-index: -1;
+            filter: blur(50px);
+            opacity: 0.1;
+            animation: bgAnimation 15s infinite alternate;
+        }
+        
+        @keyframes bgAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .btn {
+            padding: 0.8rem 2rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #ff4d5a;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 77, 90, 0.3);
+        }
+        
+        /* 关于我们 */
+        .about-content {
+            display: flex;
+            gap: 3rem;
+            margin: 4rem 0;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .about-text h2:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #ff4d5a;
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .about-text p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .about-image .image-wrapper {
+            width: 100%;
+            height: 400px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .about-image .image-wrapper:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,77,90,0.3), rgba(0,153,255,0.3));
+            z-index: 1;
+        }
+        
+        .value-points {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .value-point {
+            flex: 1;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .value-point:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-point h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .value-point p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* 服务项目 */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card .service-image {
+            height: 200px;
+            background-color: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .service-card p {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .service-card .service-link {
+            color: #ff4d5a;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .service-card .service-link:after {
+            content: '→';
+            margin-left: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card .service-link:hover:after {
+            margin-left: 10px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        /* 作品集 */
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background-color: transparent;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #ff4d5a;
+            color: white;
+            border-color: #ff4d5a;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 300px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        
+        .portfolio-item .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item .overlay h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .portfolio-item .overlay p {
+            color: #ddd;
+            text-align: center;
+            padding: 0 1rem;
+        }
+        
+        /* 团队 */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-member .member-img {
+            height: 300px;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        
+        .team-member .member-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .team-member h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .team-member .position {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            width: 35px;
+            height: 35px;
+            background-color: #f5f5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #ff4d5a;
+            color: white;
+        }
+        
+        /* 联系方式 */
+        .contact-content {
+            display: flex;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .contact-form {
+            flex: 1;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #ff4d5a;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 77, 90, 0.2);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .contact-info h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: #ff4d5a;
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+        
+        .info-item i {
+            font-size: 1.2rem;
+            color: #ff4d5a;
+        }
+        
+        .info-item .info-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .info-item .info-content p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .map {
+            width: 100%;
+            height: 300px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 3rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: #ff4d5a;
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .footer-col p {
+            line-height: 1.6;
+            color: #aaa;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #ff4d5a;
+            padding-left: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content,
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .value-points {
+                flex-direction: column;
+            }
+        }
+
+        /* 动画特效 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        /* 细节美化 */
+        .highlight {
+            color: #ff4d5a;
+        }
+
+        .accent-bg {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,77,90,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: -1;
+        }
+
+        .accent-bg.top-right {
+            top: -100px;
+            right: -100px;
+        }
+
+        .accent-bg.bottom-left {
+            bottom: -100px;
+            left: -100px;
+        }
+    </style>
+	    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+	    <script type="text/javascript">
+	        (function() {
+	            // 请替换为您的EmailJS用户ID
+	            emailjs.init("_f3FsS5LnaOcjyXFl"); // 请访问 https://dashboard.emailjs.com/admin/account 获取您的公钥
+                console.log("EmailJS initialized");
+	        })();
+	    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav class="navbar">
+            <div class="logo">三横一竖<span>.</span>Studio</div>
+            <ul class="nav-links">
+                <li class="nav-item active" data-target="home">首页</li>
+                <li class="nav-item" data-target="about">关于我们</li>
+                <li class="nav-item" data-target="services">服务项目</li>
+                <li class="nav-item" data-target="portfolio">作品集</li>
+                <li class="nav-item" data-target="team">团队</li>
+                <li class="nav-item" data-target="contact">联系我们</li>
+            </ul>
+        </nav>
+        
+        <!-- 内容部分 -->
+        <div class="content">
+            <!-- 首页 -->
+            <section id="home" class="section active">
+                <div class="hero">
+                    <div class="hero-bg"></div>
+                    <div class="accent-bg top-right"></div>
+                    <div class="accent-bg bottom-left"></div>
+                    <h1 class="fade-in">创意 · 设计 · <span class="highlight">无限可能</span></h1>
+                    <p class="fade-in">三横一竖是一家充满激情的平面设计工作室，我们致力于将创意理念转化为视觉杰作，为您的品牌注入新的生命力和独特性。</p>
+                    <div class="fade-in">
+                        <a href="#contact" class="btn nav-link" data-target="contact">联系我们</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 关于我们 -->
+            <section id="about" class="section">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h2>关于 三横一竖 工作室</h2>
+                        <p>三横一竖创意平面设计工作室成立于2025年，是一支由充满激情的设计师、创意策划人和艺术家组成的团队。我们坚信设计不仅仅是视觉表达，更是传递情感和价值的桥梁。</p>
+                        <p>在三横一竖，我们注重每一个细节，将艺术性与实用性完美结合，为客户打造独特而有力的视觉解决方案。无论是教学设计、PPT定制还是其他视觉传达，我们都以专业的态度和创新的思维，确保每一个项目都能超越客户的期望。</p>
+                        <p>我们的使命是通过卓越的设计，帮助企业和个人实现他们的视觉传达目标，创造持久的影响力。</p>
+                    </div>
+                    <div class="about-image">
+                        <div class="image-wrapper">
+                            <!-- 创意工作室图片 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="value-points">
+                    <div class="value-point fade-in">
+                        <h3>创新思维</h3>
+                        <p>我们不断挑战自我，突破常规，探索设计的无限可能性，为每一个项目注入新鲜的创意和独特的视角。</p>
+                    </div>
+                    <div class="value-point fade-in">
+                        <h3>精益求精</h3>
+                        <p>对细节的执着追求是我们的特色，从构思到执行，每一个环节都力求完美，确保最终成品的卓越品质。</p>
+                    </div>
+                    <div class="value-point fade-in">
+                        <h3>以客户为中心</h3>
+                        <p>我们深入了解客户需求，紧密合作，确保设计方案不仅具有艺术价值，更能满足实际商业目标。</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 服务项目 -->
+            <section id="services" class="section">
+                <div class="section-title">
+                    <h2>我们的服务项目</h2>
+                    <p>三横一竖工作室提供专业的教学设计和PPT定制服务，帮助您的内容脱颖而出</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card fade-in">
+                        <div class="service-image">
+                            <!-- 教学设计图片 -->
+                        </div>
+                        <div class="service-content">
+                            <h3>教学设计</h3>
+                            <p>提供专业的教学内容设计服务，包括课程规划、教材设计、活动设计和教学评估方案，使教学过程更加高效、生动。</p>
+                            <a href="#" class="service-link">了解更多</a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card fade-in">
+                        <div class="service-image">
+                            <!-- PPT定制图片 -->
+                        </div>
+                        <div class="service-content">
+                            <h3>PPT定制</h3>
+                            <p>为您提供专业的PPT设计与制作服务，从商务演示到课件制作，打造视觉冲击力强、内容清晰的优质演示文稿。</p>
+                            <a href="#" class="service-link">了解更多</a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card fade-in">
+                        <div class="service-image">
+                            <!-- 品牌设计图片 -->
+                        </div>
+                        <div class="service-content">
+                            <h3>品牌标识设计</h3>
+                            <p>打造独特而有记忆点的视觉标识，包括logo设计、品牌色彩系统、字体设计和品牌指南，使您的品牌在竞争中脱颖而出。</p>
+                            <a href="#" class="service-link">了解更多</a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card fade-in">
+                        <div class="service-image">
+                            <!-- 印刷品设计图片 -->
+                        </div>
+                        <div class="service-content">
+                            <h3>印刷品设计</h3>
+                            <p>设计并制作高质量的宣传册、海报、名片、邀请函等各类印刷品，通过精心策划的视觉元素传达您的信息。</p>
+                            <a href="#" class="service-link">了解更多</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 作品集 -->
+            <section id="portfolio" class="section">
+                <div class="section-title">
+                    <h2>精选作品</h2>
+                    <p>探索我们为各行业客户打造的创意设计作品</p>
+                </div>
+                
+                <div class="portfolio-filter">
+                    <button class="filter-btn active" data-filter="all">全部</button>
+                    <button class="filter-btn" data-filter="branding">品牌设计</button>
+                    <button class="filter-btn" data-filter="packaging">包装设计</button>
+                    <button class="filter-btn" data-filter="print">印刷品</button>
+                    <button class="filter-btn" data-filter="digital">数字媒体</button>
+                </div>
+                
+                <div class="portfolio-grid">
+                    <div class="portfolio-item fade-in" data-category="branding">
+                        <!-- 作品图片 -->
+                        <div class="overlay">
+                            <h3>青木咖啡品牌形象设计</h3>
+                            <p>为新兴咖啡品牌创建现代而有温度的品牌标识系统</p>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item fade-in" data-category="packaging">
+                        <!-- 作品图片 -->
+                        <div class="overlay">
+                            <h3>纯境护肤品包装设计</h3>
+                            <p>简约自然风格的有机护肤品包装系列设计</p>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item fade-in" data-category="print">
+                        <!-- 作品图片 -->
+                        <div class="overlay">
+                            <h3>星光音乐节宣传物料</h3>
+                            <p>为年度音乐盛事设计的海报、手册和周边产品</p>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item fade-in" data-category="digital">
+                        <!-- 作品图片 -->
+                        <div class="overlay">
+                            <h3>数字生活APP界面设计</h3>
+                            <p>专注于提升用户体验的智能家居控制应用界面</p>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item fade-in" data-category="branding">
+                        <!-- 作品图片 -->
+                        <div class="overlay">
+                            <h3>北岸书店品牌形象</h3>
+                            <p>融合传统与现代元素的独立书店全套品牌设计</p>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item fade-in" data-category="packaging">
+                        <!-- 作品图片 -->
+                        <div class="overlay">
+                            <h3>山野有机茶叶包装</h3>
+                            <p>表达自然与纯净理念的高端茶叶礼盒设计</p>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item fade-in" data-category="print">
+                        <!-- 作品图片 -->
+                        <div class="overlay">
+                            <h3>艺术展览画册</h3>
+                            <p>现代艺术展览的画册与宣传材料设计</p>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item fade-in" data-category="digital">
+                        <!-- 作品图片 -->
+                        <div class="overlay">
+                            <h3>环保公益网站设计</h3>
+                            <p>致力于环境保护的非营利组织网站设计</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 团队 -->
+            <section id="team" class="section">
+                <div class="section-title">
+                    <h2>创意团队</h2>
+                    <p>我们是一群热爱设计、追求卓越的创意人</p>
+                </div>
+                
+                <div class="team-grid">
+                    <div class="team-member fade-in">
+                        <div class="member-img">
+                            <!-- 团队成员照片 -->
+                        </div>
+                        <div class="member-info">
+                            <h3>陈慧</h3>
+                            <p class="position">创始人 & 创意总监</p>
+                            <div class="social-links">
+                                <a href="#" title="QQ: 2401107725"><i>QQ</i></a>
+                                <a href="#" title="微信: 15273925603"><i>微信</i></a>
+                                <a href="#" title="电话: 15273925603"><i>电话</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-img">
+                            <!-- 团队成员照片 -->
+                        </div>
+                        <div class="member-info">
+                            <h3>朱丰</h3>
+                            <p class="position">设计师</p>
+                            <div class="social-links">
+                                <a href="#" title="QQ: 2401107725"><i>QQ</i></a>
+                                <a href="#" title="微信: 15273925603"><i>微信</i></a>
+                                <a href="#" title="电话: 15273925603"><i>电话</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-img">
+                            <!-- 团队成员照片 -->
+                        </div>
+                        <div class="member-info">
+                            <h3>邓哲</h3>
+                            <p class="position">设计师</p>
+                            <div class="social-links">
+                                <a href="#" title="QQ: 2401107725"><i>QQ</i></a>
+                                <a href="#" title="微信: 15273925603"><i>微信</i></a>
+                                <a href="#" title="电话: 15273925603"><i>电话</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-img">
+                            <!-- 团队成员照片 -->
+                        </div>
+                        <div class="member-info">
+                            <h3>金轩丞</h3>
+                            <p class="position">客服主管</p>
+                            <div class="social-links">
+                                <a href="#" title="QQ: 2401107725"><i>QQ</i></a>
+                                <a href="#" title="微信: 15273925603"><i>微信</i></a>
+                                <a href="#" title="电话: 15273925603"><i>电话</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-img">
+                            <!-- 团队成员照片 -->
+                        </div>
+                        <div class="member-info">
+                            <h3>曾桂梅</h3>
+                            <p class="position">客服主管</p>
+                            <div class="social-links">
+                                <a href="#" title="QQ: 2401107725"><i>QQ</i></a>
+                                <a href="#" title="微信: 15273925603"><i>微信</i></a>
+                                <a href="#" title="电话: 15273925603"><i>电话</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-img">
+                            <!-- 团队成员照片 -->
+                        </div>
+                        <div class="member-info">
+                            <h3>王子涵</h3>
+                            <p class="position">运营专员</p>
+                            <div class="social-links">
+                                <a href="#" title="QQ: 2401107725"><i>QQ</i></a>
+                                <a href="#" title="微信: 15273925603"><i>微信</i></a>
+                                <a href="#" title="电话: 15273925603"><i>电话</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member fade-in">
+                        <div class="member-img">
+                            <!-- 团队成员照片 -->
+                        </div>
+                        <div class="member-info">
+                            <h3>唐治怡</h3>
+                            <p class="position">运营专员</p>
+                            <div class="social-links">
+                                <a href="#" title="QQ: 2401107725"><i>QQ</i></a>
+                                <a href="#" title="微信: 15273925603"><i>微信</i></a>
+                                <a href="#" title="电话: 15273925603"><i>电话</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 联系我们 -->
+            <section id="contact" class="section">
+                <div class="section-title">
+                    <h2>联系我们</h2>
+                    <p>无论您有什么想法，我们都期待与您交流</p>
+                </div>
+                
+               <div class="contact-content">
+                     <!-- 表单部分的更新 -->
+                      <div class="contact-form">
+                          <form id="contactForm">
+                              <div class="form-group">
+                                  <label for="Yourname">您的姓名</label>
+                                  <input type="text" id="Yourname" name="Yourname" required>
+                              </div>
+                              
+                              <div class="form-group">
+                                  <label for="email">电子邮箱</label>
+                                  <input type="email" id="email" name="email" required>
+                              </div>
+                              
+                              <div class="form-group">
+                                  <label for="phone">联系电话</label>
+                                  <input type="tel" id="phone" name="phone">
+                              </div>
+                              
+                              <div class="form-group">
+                                  <label for="message">留言内容</label>
+                                  <textarea id="message" name="message" required></textarea>
+                              </div>
+                              
+                              <button type="submit" class="btn">发送信息</button>
+                          </form>
+                      </div>
+                    
+                    <div class="contact-info">
+                        <h3>联系方式</h3>
+                        
+                        <div class="info-item">
+                            <i>📍</i>
+                            <div class="info-content">
+                                <h4>工作室地址</h4>
+                                <p>湖南省湘潭市</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i>📞</i>
+                            <div class="info-content">
+                                <h4>联系电话</h4>
+                                <p>15273925603</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i>✉️</i>
+                            <div class="info-content">
+                                <h4>电子邮箱</h4>
+                                <p>2401107725@qq.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i>⏱️</i>
+                            <div class="info-content">
+                                <h4>工作时间</h4>
+                                <p>周一至周五: 9:30 - 18:30<br>周末: 预约制</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i>📱</i>
+                            <div class="info-content">
+                                <h4>在线联系</h4>
+                                <p>QQ: 2401107725<br>微信: 15273925603</p>
+                            </div>
+                        </div>
+                        
+                        <div class="map">
+                            <!-- 地图位置预留 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- 页脚 -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>关于三横一竖</h3>
+                    <p>三横一竖是一家专注于教学设计和PPT定制的创意工作室，致力于为客户提供专业、创新的视觉解决方案，帮助个人和机构传达更有效的信息。</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>服务项目</h3>
+                    <ul class="footer-links">
+                        <li><a href="#services">教学设计</a></li>
+                        <li><a href="#services">PPT定制</a></li>
+                        <li><a href="#services">品牌标识设计</a></li>
+                        <li><a href="#services">印刷品设计</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于我们</a></li>
+                        <li><a href="#portfolio">作品集</a></li>
+                        <li><a href="#team">团队</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                        <li><a href="#">博客</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>关注我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">微博</a></li>
+                        <li><a href="#">微信公众号</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Behance</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 三横一竖创意设计工作室. 保留所有权利.</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+		 // 表单提交处理
+		        const contactForm = document.getElementById('contactForm');
+		        
+		        if (contactForm) {
+                    console.log("Contact form found");
+		            contactForm.addEventListener('submit', function(e) {
+		                e.preventDefault();
+                        console.log("Form submitted");
+		                
+		                // 显示发送中状态
+		                const submitButton = this.querySelector('button[type="submit"]');
+		                const originalText = submitButton.textContent;
+		                submitButton.textContent = '发送中...';
+		                submitButton.disabled = true;
+		                
+		                // 准备要发送的数据
+                        const yourname = document.getElementById('Yourname').value;
+                        const email = document.getElementById('email').value;
+                        const phone = document.getElementById('phone').value;
+                        const message = document.getElementById('message').value;
+                        
+                        console.log("Form data:", {yourname, email, phone, message});
+                        
+		                const templateParams = {
+		                    from_name: yourname,
+		                    reply_to: email,
+		                    phone_number: phone,
+		                    message: message,
+		                    to_email: "2401107725@qq.com"
+		                };
+		                
+                        console.log("Sending email with params:", templateParams);
+                        
+		                // 发送邮件
+		                emailjs.send('service_tgxcirm', 'template_0qd8tls', templateParams) // 需要替换为您的实际服务ID和模板ID
+		                    .then(function(response) {
+		                        console.log('SUCCESS!', response.status, response.text);
+		                        alert('感谢您的留言！我们会尽快与您联系。');
+		                        contactForm.reset();
+		                    }, function(error) {
+		                        console.log('FAILED...', error);
+		                        alert('发送失败，请稍后再试或直接联系我们。\n\n错误详情: ' + (error.text || JSON.stringify(error)));
+		                    })
+		                    .finally(() => {
+		                        // 恢复按钮状态
+		                        submitButton.textContent = originalText;
+		                        submitButton.disabled = false;
+		                    });
+		            });
+		        } else {
+                    console.error("Contact form not found!");
+                }
+				
+        // 导航与内容区域切换效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 导航项点击事件
+            const navItems = document.querySelectorAll('.nav-links .nav-item');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            
+            function switchToSection(targetId) {
+                // 移除所有导航项的active类
+                navItems.forEach(item => item.classList.remove('active'));
+                
+                // 为目标导航项添加active类
+                const targetNavItem = document.querySelector(`.nav-item[data-target="${targetId}"]`);
+                if (targetNavItem) {
+                    targetNavItem.classList.add('active');
+                }
+                
+                // 隐藏所有section
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // 显示目标section
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    
+                    // 为新section中的元素添加淡入动画
+                    const fadeElements = targetSection.querySelectorAll('.fade-in');
+                    fadeElements.forEach((el, index) => {
+                        setTimeout(() => {
+                            el.style.opacity = '0';
+                            el.style.transform = 'translateY(20px)';
+                            
+                            setTimeout(() => {
+                                el.style.opacity = '1';
+                                el.style.transform = 'translateY(0)';
+                            }, 100);
+                        }, index * 100);
+                    });
+                    
+                    // 滚动到顶部
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // 为导航项添加点击事件
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    switchToSection(targetId);
+                });
+            });
+            
+            // 为导航链接添加点击事件
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    switchToSection(targetId);
+                });
+            });
+            
+            // 作品集筛选功能
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    filterBtns.forEach(btn => btn.classList.remove('active'));
+                    
+                    // 为当前按钮添加active类
+                    this.classList.add('active');
+                    
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // 筛选作品
+                    portfolioItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                            
+                            // 添加淡入动画
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 100);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.8)';
+                            
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+            
+            // 联系表单提交
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // 这里可以添加表单验证和提交逻辑
+                    alert('感谢您的留言！我们会尽快与您联系。');
+                    contactForm.reset();
+                });
+            }
+            
+            // 滚动监听，添加淡入动画
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            function checkFadeElements() {
+                fadeElements.forEach(el => {
+                    const elementTop = el.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        el.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', checkFadeElements);
+            checkFadeElements(); // 初始检查
+            
+            // 添加平滑滚动效果
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        document.querySelector(`[data-target="${targetId}"]`).click();
+                    }
+                });
+            });
+        });
+		
+    </script>
+</body>
+</html>
